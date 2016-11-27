@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/coalescence.js"],"names":["coalescence","module","exports"],"mappings":";;AACA,MAAMA,cAAc,MAAI,CAEvB,CAFD;;AAIAC,OAAOC,OAAP,GAAiBF,WAAjB","file":"coalescence.js","sourcesContent":["\nconst coalescence = ()=>{\n\n};\n\nmodule.exports = coalescence;"]}

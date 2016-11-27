@@ -1,0 +1,53 @@
+{
+  "name": "coalescence",
+  "description": "Library which provides mixin/merge/extend functionality.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "https://github.com/jasonmcaffee/coalescence",
+  "author": {
+    "name": "Jason McAffee",
+    "email": "jasonlmcaffee@gmail.com",
+    "url": ""
+  },
+  "keywords": [
+    "mixin",
+    "merge",
+    "extend",
+    "trait"
+  ],
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasonmcaffee/coalescence.git"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "codio:download-node": "curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -",
+    "codio:install-node": "sudo apt-get install -y nodejs",
+    "initial-setup": "npm install jasmine -g && npm install babel-cli -g && npm install && npm run build",
+    "initial-setup-for-codio": "npm run codio:download-node && npm run codio:install-node && npm run initial-setup",
+    "test": "NODE_ENV=test-unit jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "build-no-clean": "babel src test --out-dir build --source-maps",
+    "build-watch": "babel src test --out-dir build --source-maps --watch",
+    "clean": "rm -rf build",
+    "build": "npm run clean && npm run build-no-clean",
+    "dist": "cp build/coalescence.js lib && cp build/coalescence.js.map lib",
+    "build-dist": "npm run build && npm run dist"
+  },
+  "bugs": {
+    "url": "https://github.com/jasonmcaffee/coalescence/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.14.0",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.18.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "jasmine": "2.4.1"
+  },
+  "main": "./lib/coalescence.js"
+}
