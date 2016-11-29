@@ -20,7 +20,7 @@ const coalescence = (...sources)=>{
 /**
  * Iterates over each source property and copies it to the target.
  * If the source property value is an object, each property of the value will be copied to the target property
- * @param target - source properties are copied into this object
+ * @param target - source properties are copied into this object.
  * @param source - all properties will be copied from this into target. function context for get/set/function will be maintained.
  * @returns {*|{}}
  */
@@ -31,9 +31,7 @@ const deepMerge = (target, source)=>{
     for(const [key, value] of Object.entries(source)){
         //get the property descriptor and clone it, so we can modify the value without any side affects.
         let sourcePropertyDescriptorForKeyClone = Object.getOwnPropertyDescriptor(source, key);
-        //let sourcePropertyDescriptorForKeyClone = clone(sourcePropertyDescriptorForKey);
         let mergedValue;
-        //console.log(`key: ${key} has sourcePropertyDescription: ${sourcePropertyDescriptorForKeyClone}`);
         switch(typeof(value)){
             case 'object':
                 if(typeof value[Symbol.iterator] === 'function'){
@@ -61,7 +59,7 @@ const deepMerge = (target, source)=>{
 const clone = objectToClone => deepMerge(undefined, objectToClone);
 
 const cloneIterable = arrayToClone =>{
-    return arrayToClone.map(deepMerge);
+    return arrayToClone.map(clone);
 };
 
 module.exports = coalescence;
