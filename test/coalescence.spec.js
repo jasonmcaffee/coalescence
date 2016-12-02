@@ -12,8 +12,8 @@ describe("coalescence", ()=>{
                 last: 'unknown'
             },
             items:[
-                arrayItem1,
-                arrayItem2
+                arrayItem2,
+                arrayItem1
             ]
         };
 
@@ -22,6 +22,9 @@ describe("coalescence", ()=>{
                 first: 'jim',
                 last: 'halpert'
             },
+            items:[
+                arrayItem1
+            ],
             sex: 'male'
         };
 
@@ -29,6 +32,7 @@ describe("coalescence", ()=>{
 
         expect(result.name).toEqual(person.name);
         expect(result.sex).toEqual(person.sex);
+        expect(result.items.length).toEqual(1);
         expect(result.items[0].item).toEqual(arrayItem1.item);
 
         //mutations of one should not affect the other
