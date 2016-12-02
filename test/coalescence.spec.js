@@ -3,12 +3,18 @@ const coalescence = require('./../build/coalescence');
 describe("coalescence", ()=>{
 
     it("should provide deep defaults/merge functionality", ()=>{
+        let arrayItem1 = {item: 1};
+        let arrayItem2 = {item: 2};
 
         let defaults = {
             name:{
                 first: 'unknown',
                 last: 'unknown'
-            }
+            },
+            items:[
+                arrayItem2,
+                arrayItem1
+            ]
         };
 
         let person = {
@@ -16,6 +22,9 @@ describe("coalescence", ()=>{
                 first: 'jim',
                 last: 'halpert'
             },
+            items:[
+                arrayItem1
+            ],
             sex: 'male'
         };
 
@@ -23,13 +32,17 @@ describe("coalescence", ()=>{
 
         expect(result.name).toEqual(person.name);
         expect(result.sex).toEqual(person.sex);
+        expect(result.items.length).toEqual(1);
+        expect(result.items[0].item).toEqual(arrayItem1.item);
 
         //mutations of one should not affect the other
         person.name.first = 'pam';
         expect(result.name.first).toEqual('jim');
 
-    });
+        arrayItem1.item = 'abcd';
+        expect(result.items[0].item).not.toEqual(arrayItem1.item);
 
+    });
 
     it("should maintain context for accesssors, mutators, and functions", ()=>{
         let dunderMifflinEmployee = {
@@ -65,9 +78,10 @@ describe("coalescence", ()=>{
         result.fullName = 'pam beesly';
         expect(result.name.first).toEqual('pam');
         expect(result.name.last).toEqual('beesly');
+        expect(person.fullName).not.toEqual('pam beesly');
     });
 
-    fit("should merge property descriptors", ()=>{
+    it("should merge property descriptors", ()=>{
         let defaults = {};
         let defaultNamePropertyDescriptor = {
             value: {first: 'unknown', last:'unknown'},
@@ -98,9 +112,6 @@ describe("coalescence", ()=>{
         let result2Descriptor = Object.getOwnPropertyDescriptor(result2, 'name');
         let defaultsPropertyDescriptor = Object.getOwnPropertyDescriptor(defaults, 'name');
         expect(result2Descriptor).toEqual(defaultsPropertyDescriptor);
-
-
-
     });
 
     //it("should provide an api for mapping, filtering, etc", ()=>{
